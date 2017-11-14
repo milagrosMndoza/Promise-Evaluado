@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom';
-// import {SingIn} from './SingIn';
-// import {SingUp} from './SingUp';
-// import {BoardTrello} from './BoardTrello';
 import { connect } from 'redux-zero/react';
+import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import Center from 'react-center';
+import {PlanetList} from './PlanetList';
+import {search} from './actions';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+
+const App =({items})=> {
+  const planetary = items.map((planet, index) => {
+    return(
+      <li key={index}>
+        <PlanetList name={planet.name} dens={planet.dens} />
+      </li>
     );
-  }
- }
-/* <SingUp/> */
-// const mapToProps = ({  }) => ({
-     
-//  });
-//  export default connect(mapToProps)(App);
+  })
+  search();
+  return (
+    <Center>
+    <div>
+    <div className="header">
+      <h1>Exoplanet Explorer</h1>
+      <p>Lean more about planets around other starts! </p>
+   </div>
+   <div>{ items.length!=0 ? 
+      <ul>{planetary}</ul>
+          :
+      <br/>
+      }
+  </div>
+ 
+  </div>
+  </Center>);
+}
 
-export default App;
+  const mapToProps = ({ items }) => ({items});
+  export default connect(mapToProps)(App)

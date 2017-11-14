@@ -17,6 +17,10 @@
 .App-title {
   font-size: 1.5em;
 }
+.header{
+  background: rgb(77, 87, 223);
+  color: #fff;
+}
 
 /* body{
   background: #89609E;
